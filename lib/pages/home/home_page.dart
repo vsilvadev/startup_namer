@@ -1,5 +1,6 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
+import 'package:startup_namer/core/app_colors.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -14,16 +15,27 @@ class _HomePage extends State<HomePage> {
   final _biggerFont = const TextStyle(fontSize: 18);
 
   void _pushSaved() {
+    final savedList = _saved.toList();
+
     Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (context) {
-          final tiles = _saved.map(
-            (pair) {
+          final tiles = savedList.asMap().entries.map(
+            (entry) {
               return ListTile(
                 title: Text(
-                  pair.asPascalCase,
+                  entry.value.asPascalCase,
                   style: _biggerFont,
                 ),
+                trailing: const Icon(
+                  Icons.favorite,
+                  color: AppColors.blue,
+                ),
+                onTap: () {
+                  setState(() {
+                    _saved.remove(entry.value);
+                  });
+                },
               );
             },
           );
@@ -76,7 +88,7 @@ class _HomePage extends State<HomePage> {
             ),
             trailing: Icon(
               alreadySaved ? Icons.favorite : Icons.favorite_border_outlined,
-              color: alreadySaved ? Colors.blue.shade900 : null,
+              color: alreadySaved ? AppColors.blue : null,
               semanticLabel: alreadySaved ? 'Remove from saved' : 'Save',
             ),
             onTap: () {
