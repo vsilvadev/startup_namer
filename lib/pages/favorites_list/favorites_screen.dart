@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:startup_namer/core/app_colors.dart';
-import 'package:startup_namer/pages/home/favorites_state.dart';
+import 'package:startup_namer/pages/favorites_state.dart';
 
 class FavoritesScreen extends StatelessWidget {
   const FavoritesScreen({Key? key}) : super(key: key);

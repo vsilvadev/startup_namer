@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:startup_namer/pages/home/favorites_state.dart';
+import 'package:startup_namer/pages/favorites_state.dart';
 import 'package:startup_namer/splash/splash_page.dart';
 
 void main() {

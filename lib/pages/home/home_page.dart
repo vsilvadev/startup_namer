@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:startup_namer/core/app_colors.dart';
 import 'package:startup_namer/pages/favorites_list/favorites_screen.dart';
-import 'package:startup_namer/pages/home/favorites_state.dart';
+import 'package:startup_namer/pages/favorites_state.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
