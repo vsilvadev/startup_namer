@@ -3,32 +3,32 @@ import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 import 'package:startup_namer/main.dart';
 
-class WordPairState extends ChangeNotifier {
-  final _saved = <WordPair>{};
+class FavoritesState extends ChangeNotifier {
+  final _savedFavorites = <WordPair>{};
 
   void removeFromList(value) {
-    _saved.remove(value);
+    _savedFavorites.remove(value);
     notifyListeners();
   }
 
   void addToList(value) {
-    _saved.add(value);
+    _savedFavorites.add(value);
     notifyListeners();
   }
 
   List getSavedList() {
-    final savedList = _saved.toList();
+    final savedList = _savedFavorites.toList();
     return savedList;
   }
 
   bool checkSaved(position) {
-    final contains = _saved.contains(position);
+    final contains = _savedFavorites.contains(position);
     return contains;
   }
 
   static ChangeNotifierProvider get provider {
-    return ChangeNotifierProvider<WordPairState>(
-      create: (_) => WordPairState(),
+    return ChangeNotifierProvider<FavoritesState>(
+      create: (_) => FavoritesState(),
       child: const AppWidget(),
     );
   }

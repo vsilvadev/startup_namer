@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:startup_namer/core/app_colors.dart';
 import 'package:startup_namer/pages/favorites_list/favorites_screen.dart';
-import 'package:startup_namer/pages/home/word_pair_state.dart';
+import 'package:startup_namer/pages/home/favorites_state.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -18,7 +18,7 @@ class _HomePage extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final wordPairState = context.watch<WordPairState>();
+    final wordPairState = context.watch<FavoritesState>();
 
     return Scaffold(
       appBar: AppBar(

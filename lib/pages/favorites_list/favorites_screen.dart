@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:startup_namer/core/app_colors.dart';
-import 'package:startup_namer/pages/home/word_pair_state.dart';
+import 'package:startup_namer/pages/home/favorites_state.dart';
 
 class FavoritesScreen extends StatelessWidget {
   const FavoritesScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final wordPairState = context.watch<WordPairState>();
+    final wordPairState = context.watch<FavoritesState>();
     final savedList = wordPairState.getSavedList();
 
     final tiles = savedList.asMap().entries.map(
