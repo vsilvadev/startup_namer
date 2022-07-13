@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:startup_namer/pages/home/word_pair_state.dart';
 import 'package:startup_namer/splash/splash_page.dart';
 
 void main() {
-  runApp(const AppWidget());
+  runApp(
+    WordPairState.provider,
+  );
 }
 
 class AppWidget extends StatelessWidget {

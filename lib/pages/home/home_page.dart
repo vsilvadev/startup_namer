@@ -1,6 +1,9 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:startup_namer/core/app_colors.dart';
+import 'package:startup_namer/pages/favorites_list/favorites_screen.dart';
+import 'package:startup_namer/pages/home/word_pair_state.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -11,61 +14,25 @@ class HomePage extends StatefulWidget {
 
 class _HomePage extends State<HomePage> {
   final _suggestions = <WordPair>[];
-  final _saved = <WordPair>{};
   final _biggerFont = const TextStyle(fontSize: 18);
-
-  void _pushSaved() {
-    final savedList = _saved.toList();
-
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (context) {
-          final tiles = savedList.asMap().entries.map(
-            (entry) {
-              return ListTile(
-                title: Text(
-                  entry.value.asPascalCase,
-                  style: _biggerFont,
-                ),
-                trailing: const Icon(
-                  Icons.favorite,
-                  color: AppColors.blue,
-                ),
-                onTap: () {
-                  setState(() {
-                    _saved.remove(entry.value);
-                  });
-                },
-              );
-            },
-          );
-          final divided = tiles.isNotEmpty
-              ? ListTile.divideTiles(
-                  context: context,
-                  tiles: tiles,
-                ).toList()
-              : <Widget>[];
-
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text('Saved Suggestions'),
-            ),
-            body: ListView(children: divided),
-          );
-        },
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
+    final wordPairState = context.watch<WordPairState>();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Startup Name Generator'),
         actions: [
           IconButton(
             icon: const Icon(Icons.list),
-            onPressed: _pushSaved,
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const FavoritesScreen()),
+              );
+            },
             tooltip: 'Saved Suggestions',
           ),
         ],
@@ -80,7 +47,7 @@ class _HomePage extends State<HomePage> {
             _suggestions.addAll(generateWordPairs().take(10));
           }
 
-          final alreadySaved = _saved.contains(_suggestions[index]);
+          final alreadySaved = wordPairState.checkSaved(_suggestions[index]);
           return ListTile(
             title: Text(
               _suggestions[index].asPascalCase,
@@ -94,9 +61,9 @@ class _HomePage extends State<HomePage> {
             onTap: () {
               setState(() {
                 if (alreadySaved) {
-                  _saved.remove(_suggestions[index]);
+                  wordPairState.removeFromList(_suggestions[index]);
                 } else {
-                  _saved.add(_suggestions[index]);
+                  wordPairState.addToList(_suggestions[index]);
                 }
               });
             },
